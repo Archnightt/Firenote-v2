@@ -1,13 +1,6 @@
-<img src="https://raw.githubusercontent.com/kubixDev/Noteify/master/readmeImages/noteifyLogo.png" width="400"/>
-
-[![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/made-with-java.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/built-for-android.svg)](https://forthebadge.com) [![forthebadge](https://raw.githubusercontent.com/BraveUX/for-the-badge/master/src/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FkubixDev%2FNoteify&count_bg=%238200FF&title_bg=%23000000&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true)](https://hits.seeyoufarm.com)
-
----
-
 ## About
 
-**Noteify** is a powerful and compact notepad designed in Java for Android. Keeping track of your thoughts has never been easier! This project has been developed in order to learn more about building mobile applications.
+**SkyNote** is a powerful and compact notepad designed in Java for Android. Keeping track of your thoughts has never been easier! This project has been developed in order to learn more about building mobile applications.
 
 ## Features
 
