@@ -4,7 +4,7 @@
 
 ## Features
 
-Some of the main Noteify features
+Some of the main SkyNote features
 * ability to create, edit and delete notes
 * search bar which helps you find specific notes by their title or content
 * automatic light/dark theme based on system settings
@@ -21,7 +21,7 @@ The project uses
 ## Launch
 
 * you need **Android 8.0 (API level 26) or greater** for the application to work properly
-* a stable and most recent version of Noteify can be found in **"releases"**
+* a stable and most recent version of SkyNote can be found in **"releases"**
 * if you experience performance issues, try force stopping and clearing the app's cache
 * clearing application data will delete the entire notes database, please proceed with caution
 
