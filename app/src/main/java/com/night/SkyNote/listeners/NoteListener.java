@@ -1,6 +1,6 @@
-package com.kubixdev.noteify.listeners;
+package com.night.SkyNote.listeners;
 
-import com.kubixdev.noteify.entities.NoteEntity;
+import com.night.SkyNote.entities.NoteEntity;
 
 // zewnetrzny listener do elementow recyclerview (konkretnych notatek)
 public interface NoteListener {

@@ -1,4 +1,4 @@
-package com.kubixdev.noteify.activities;
+package com.night.SkyNote.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -22,11 +22,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.kubixdev.noteify.R;
-import com.kubixdev.noteify.adapters.NoteAdapter;
-import com.kubixdev.noteify.database.NotepadDatabase;
-import com.kubixdev.noteify.entities.NoteEntity;
-import com.kubixdev.noteify.listeners.NoteListener;
+import com.night.SkyNote.R;
+import com.night.SkyNote.adapters.NoteAdapter;
+import com.night.SkyNote.database.NotepadDatabase;
+import com.night.SkyNote.entities.NoteEntity;
+import com.night.SkyNote.listeners.NoteListener;
 
 import java.util.ArrayList;
 import java.util.List;

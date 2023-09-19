@@ -1,4 +1,4 @@
-package com.kubixdev.noteify.adapters;
+package com.night.SkyNote.adapters;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kubixdev.noteify.R;
-import com.kubixdev.noteify.entities.NoteEntity;
-import com.kubixdev.noteify.listeners.NoteListener;
+import com.night.SkyNote.R;
+import com.night.SkyNote.entities.NoteEntity;
+import com.night.SkyNote.listeners.NoteListener;
 
 import org.apache.commons.lang3.StringUtils;
 

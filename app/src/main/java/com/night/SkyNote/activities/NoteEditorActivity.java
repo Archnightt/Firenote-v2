@@ -1,17 +1,12 @@
-package com.kubixdev.noteify.activities;
+package com.night.SkyNote.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -19,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kubixdev.noteify.R;
-import com.kubixdev.noteify.database.NotepadDatabase;
-import com.kubixdev.noteify.entities.NoteEntity;
+import com.night.SkyNote.R;
+import com.night.SkyNote.database.NotepadDatabase;
+import com.night.SkyNote.entities.NoteEntity;
 
 public class NoteEditorActivity extends AppCompatActivity {
 

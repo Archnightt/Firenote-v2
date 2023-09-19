@@ -1,4 +1,4 @@
-package com.kubixdev.noteify.entities;
+package com.night.SkyNote.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

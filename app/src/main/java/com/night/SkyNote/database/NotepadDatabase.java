@@ -1,4 +1,4 @@
-package com.kubixdev.noteify.database;
+package com.night.SkyNote.database;
 
 
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.kubixdev.noteify.dao.NotepadDao;
-import com.kubixdev.noteify.entities.NoteEntity;
+import com.night.SkyNote.dao.NotepadDao;
+import com.night.SkyNote.entities.NoteEntity;
 
 
 @androidx.room.Database(entities = NoteEntity.class, version = 1, exportSchema = false)

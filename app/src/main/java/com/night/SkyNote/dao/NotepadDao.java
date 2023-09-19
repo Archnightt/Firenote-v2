@@ -1,11 +1,11 @@
-package com.kubixdev.noteify.dao;
+package com.night.SkyNote.dao;
 
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.kubixdev.noteify.entities.NoteEntity;
+import com.night.SkyNote.entities.NoteEntity;
 
 import java.util.List;
 
