@@ -35,7 +35,7 @@ public class NoteEditorActivity extends AppCompatActivity {
         inputNote = findViewById(R.id.noteBody);
 
 
-        // przycisk wstecz
+        // back button
         ImageView buttonBack = findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +46,12 @@ public class NoteEditorActivity extends AppCompatActivity {
         });
 
 
-        // przycisk zapisu notatki
+        // note save button
         TextView saveNoteButton = findViewById(R.id.buttonSave);
         saveNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // wywoluje metode zapisu notatki przy nacisnieciu
+                //invokes the method of saving a note when pressed
                 saveNote();
                 closeKeyboard();
             }
@@ -60,8 +60,8 @@ public class NoteEditorActivity extends AppCompatActivity {
 
 
 
-        // TODO: 26.06.2021 znalezc sposob na przechowywanie formatowania, nie zapisuje sie w android room
-//        // przycisk bold
+        // TODO: 26/06/2021 find a way to store formatting, it does not save in android room
+//        // bold button
 //        ImageView buttonBold = findViewById(R.id.buttonBold);
 //        buttonBold.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -73,7 +73,7 @@ public class NoteEditorActivity extends AppCompatActivity {
 //        });
 //
 //
-//        // przycisk italics
+//        // italics button
 //        ImageView buttonItalic = findViewById(R.id.buttonItalic);
 //        buttonItalic.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -85,7 +85,7 @@ public class NoteEditorActivity extends AppCompatActivity {
 //        });
 //
 //
-//        // przycisk underline
+//        // underline button
 //        ImageView buttonUnderline = findViewById(R.id.buttonUnderline);
 //        buttonUnderline.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -98,12 +98,12 @@ public class NoteEditorActivity extends AppCompatActivity {
 
 
 
-        // domyslnie notatka nie jest aktualizowana, stad wartosc false
+        // by default, the note is not updated, hence the value false
         // Serializable	the value of an item previously added with putExtra(), or null if no Serializable value was found
         if (getIntent().getBooleanExtra("isNoteUpdated", false)) {
             noteAlreadyExists = (NoteEntity)getIntent().getSerializableExtra("note");
 
-            // wywoluje metode aktualizacji notatki
+            // calls the note update method
             setNoteUpdate();
         }
     }
@@ -112,7 +112,7 @@ public class NoteEditorActivity extends AppCompatActivity {
     ////////////////////////
     // METODA HIDE KEYBOARD
     ////////////////////////
-    // aby nie uruchamiala sie ponownie przy powrocie do MainActivity
+    // so that it doesn't restart when returning to MainActivity
     public void closeKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -123,54 +123,54 @@ public class NoteEditorActivity extends AppCompatActivity {
 
 
     ///////////////////////////////
-    // METODA AKTUALIZACJI NOTATKI
+    // NOTE UPDATE METHOD
     ///////////////////////////////
     private void setNoteUpdate() {
 
-        // wstawia nowy tytul i tekst do notatki ktora juz istnieje (noteAlreadyExists to NoteEntity!)
+        // inserts a new title and text into a note that already exists (noteAlreadyExists to NoteEntity!)
         inputTitle.setText(noteAlreadyExists.getNoteTitle());
         inputNote.setText(noteAlreadyExists.getNoteBody());
     }
 
 
     ///////////////////////////
-    // METODA ZAPISU NOTATKI
+    // METHOD OF RECORDING NOTES
     ///////////////////////////
     private void saveNote() {
-        // trim skraca niepotrzebne spacje, cala instrukcja sprawdza czy tytul jest pusty
-        // jezeli jest pusty, to wyswietla sie komunikat
+        // trim shortens unnecessary spaces, the entire statement checks whether the title is empty
+        // if it is empty, a message is displayed
         if (inputTitle.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Title is empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // sprawdza czy tresc notatki jest pusta, wyswietla komunikat
+        // checks whether the note content is empty, displays a message
         else if (inputNote.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Note is empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // jezeli notatka zawiera tytul i tekst, to tworzy NoteEntity z tym co wprowadzono
+        // if the note contains a title and text, it creates a NoteEntity with what was entered
         final NoteEntity noteEntity = new NoteEntity();
         noteEntity.setNoteTitle(inputTitle.getText().toString());
         noteEntity.setNoteBody(inputNote.getText().toString());
 
 
-        // jezeli notatka juz istnieje, to znaczy ze jest modyfikowana i ustawia sie dla niej nowe ID
+        // if the note already exists, it means that it is being modified and a new ID is set for it
         if (noteAlreadyExists != null) {
             noteEntity.setNoteID(noteAlreadyExists.getNoteID());
         }
 
 
         /////////////////////
-        // ZAPIS NOTATKI
+        // WRITE A NOTE
         /////////////////////
         @SuppressLint("StaticFieldLeak")
         class SaveNoteClass extends AsyncTask<Void, Void, Void> {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                // asynctask tworzy notatke w bazie danych
+                // asynctask creates a note in the database
                 NotepadDatabase.getNoteDatabase(getApplicationContext()).notepadDao().createNote(noteEntity);
                 return null;
             }
@@ -180,7 +180,7 @@ public class NoteEditorActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
 
                 // https://developer.android.com/reference/android/content/Intent
-                // tworzony jest intent, ktorego wynik przekazywany jest pozniej aby wywolac konkretny request code (dodanie lub modyfikacja notatki)
+                //an intent is created, the result of which is later passed to invoke a specific request code (adding or modifying a note)
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 finish();

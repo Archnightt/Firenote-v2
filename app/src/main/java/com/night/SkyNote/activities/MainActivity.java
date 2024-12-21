@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     private RecyclerView noteRecycler;
     private List<NoteEntity> noteList;
     private NoteAdapter noteAdapter;
-    private int clickedNotePosition = -1;        // odpowiada za obecnie kliknieta notatke
-    public int longClickedNotePosition = -2;     // odpowiada za obecnie dlugo kliknieta notatke
-    public int noteCounter;                      // odpowiada za licznik notatek
+    private int clickedNotePosition = -1;        //responsible for the currently clicked note
+    public int longClickedNotePosition = -2;     //responsible for the currently long-clicked note
+    public int noteCounter;                      // is responsible for the note counter
 
     private AlertDialog deleteNoteDialog;
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         setContentView(R.layout.activity_main);
 
 
-        // przycisk dodawania notatki
+        // add note button
         FloatingActionButton addNoteButton = findViewById(R.id.buttonAddNote);
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         });
 
 
-        // ustawienie layoutu recyclera, w tym przypadku pionowy linearlayout
+        // setting the recycler layout, in this case vertical linearlayout
         noteRecycler = findViewById(R.id.noteRecycler);
         noteRecycler.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -78,12 +78,12 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteRecycler.setAdapter(noteAdapter);
 
 
-        // metoda getNote wywolywana jest na starcie aplikacji (onCreate)
-        // przekazany jest request code, ktory odpowiada za wyswietlenie wszystkich notatek na poczatku
+        // getNote method is called at the start of the application (onCreate)
+        // a request code is passed, which is responsible for displaying all notes at the beginning
         getNote(displayNotesCode);
 
 
-        // odpowiada za dzialanie paska wyszukiwania
+        // is responsible for the operation of the search bar
         EditText searchBar = findViewById(R.id.searchBar);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,13 +93,13 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // jak zmieni sie tekst, to timer sie resetuje (aby nie szukalo od razu)
+                // when the text changes, the timer is reset (so that it does not search immediately)
                 noteAdapter.cancelTimer();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // uzywa metody szukania notatki tylko gdy lista nie jest pusta
+                // uses the note search method only when the list is not empty
                 if (noteList.size() != 0) {
                     noteAdapter.searchNotes(s.toString());
                 }
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     /////////////////////////////
-    // METODA KLIKNIECIA NOTATKI
+    // NOTE CLICK METHOD
     /////////////////////////////
     @Override
     public void noteClicked(NoteEntity noteEntity, int position) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     //////////////////////////////////////
-    // METODA DLUGIEGO KLIKNIECIA NOTATKI
+    // LONG NOTE CLICK METHOD
     //////////////////////////////////////
     @Override
     public void noteLongClicked(NoteEntity noteEntity, int position) {
@@ -130,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 //        Toast.makeText(this, String.valueOf(position) ,Toast.LENGTH_SHORT).show();
 
 
-//        dziala, przerobic na okno dialogowe
+//        works, convert it to a dialog box
+////
 //        AsyncTask.execute(() -> NotepadDatabase.getNoteDatabase(getApplicationContext()).notepadDao().deleteNote(noteEntity));
 //        noteCounter--;
 //        noteCounterSetLabel();
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     //////////////////////////////////////
-    // METODA POKAZANIA DIALOGU USUNIECIA
+    // METHOD OF SHOWING THE DELETION DIALOGUE
     //////////////////////////////////////
     private void deleteDialog(NoteEntity noteEntity, int position) {
         if (deleteNoteDialog == null) {
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             }
 
 
-            // blokuje inne mozliwosci wyjscia z alertdialog oprocz przyciskow
+            // blocks other exit options from alertdialog except buttons
             deleteNoteDialog.setCancelable(false);
             deleteNoteDialog.setCanceledOnTouchOutside(false);
 
@@ -166,24 +167,24 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 @Override
                 public void onClick(View v) {
 
-                    // zwykly asynctask powodowal bledy, lambda dziala
-                    // problem z usuwaniem wielu notatek z bazy danych, mozna usunac tylko jedna notatke na raz, reszta usuwa sie tylko wizualnie
-                    // todo tymczasowo rozwiazane poprzez reload MainActivity
+                    // regular asynctask caused errors, lambda works
+                    // problem with deleting multiple notes from the database, you can only delete one note at a time, the rest are only deleted visually
+                    // todo temporarily resolved by reloading MainActivity
                     AsyncTask.execute(() -> NotepadDatabase.getNoteDatabase(getApplicationContext()).notepadDao().deleteNote(noteEntity));
 
 
-                    // usuwa konkretna notatke z listy, zmniejsza licznik, ustawia label notatek, informuje o zmianie w database
+                    // removes a specific note from the list, decrements the counter, sets the note label, informs about changes in the database
                     noteList.remove(position);
                     noteCounter--;
                     noteCounterSetLabel();
                     noteAdapter.notifyDataSetChanged();
 
 
-                    // przeladowuje recyclera i konczy okno dialogowe
+                    // reloads the recycler and ends the dialog
                     deleteNoteDialog.dismiss();
 
 
-                    // reloaduje MainActivity, tymczasowe
+                    // reloads MainActivity, temporary
                     reloadActivity();
                 }
             });
@@ -197,19 +198,19 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             });
         }
 
-        // pokazuje alertdialog
+        // shows alertdialog
         deleteNoteDialog.show();
 
-        // ustawia go u dolu dla wygody
+        // positions it at the bottom for convenience
         // https://www.geeksforgeeks.org/how-to-change-the-position-of-alertdialog-in-android/
         deleteNoteDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
 
     /////////////////////
-    // METODA DELETENOTE
+    // METHOD DELETENOTE
     /////////////////////
-    // todo do poprawienia, sa bledy w przeciwienstwie do lambdy
+    // todo needs to be corrected, there are errors unlike lambda
     private void deleteNote(NoteEntity noteEntity, int position) {
 
         @SuppressLint("StaticFieldLeak")
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     ////////////////////////////
-    // METODA RELOAD ACTIVITY
+    // METHOD RELOAD ACTIVITY
     ////////////////////////////
     public void reloadActivity() {
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     /////////////////////
-    // METODA GETNOTE
+    // METHOD GETNOTE
     /////////////////////
     private void getNote(final int request) {
 
@@ -265,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         // https://developer.android.com/reference/android/os/AsyncTask
         class SaveNoteClass extends AsyncTask<Void, Void, List<NoteEntity>> {
 
-            // zwraca notatki z room database
+            // returns notes from room database
             @Override
             protected List<NoteEntity> doInBackground(Void... voids) {
                 return NotepadDatabase.getNoteDatabase(getApplicationContext()).notepadDao().getAllNotes();
@@ -289,10 +290,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                     case addNoteCode: {
                         noteList.add(0, noteEntities.get(0));
 
-                        // informuje o zmianie notatki na konkretnej pozycji zeby nie uzywac notifyDataSetChanged, ktory informuje o zmianie calosci
+                        // informs about changing the note in a specific position to avoid using notifyDataSetChanged, which informs about changing the whole
                         noteAdapter.notifyItemInserted(0);
 
-                        // automatycznie scrolluje recyclerview notatek na poczatek
+                        // automatically scrolls the recyclerview of notes to the beginning
                         noteRecycler.getLayoutManager().scrollToPosition(0);
 
                         noteCounter++;
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
                     case updateNoteCode: {
 
-                        // gdy notatka jest modyfikowana, usuwa poprzednia i wstawia nowa na to samo miejsce
+                        // when a note is modified, it deletes the previous one and inserts a new one in the same place
                         noteList.remove(clickedNotePosition);
                         noteList.add(clickedNotePosition, noteEntities.get(clickedNotePosition));
                         noteAdapter.notifyItemChanged(clickedNotePosition);
@@ -323,17 +324,17 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // jezeli zostala utworzona nowa notatka, to do metody onActivityResult przekazuje sie request code dodania pojedynczej notatki
-        // przy okzaji kod wyniku poprzedniego activity (NoteEditor) musi rownac sie RESULT_OK
-        // gdy aplikacja by sie zcrashowala, to kodem bylby RESULT_CANCELED
+        // if a new note has been created, the request code for adding a single note is passed to the onActivityResult method
+        // for okzai, the result code of the previous activity (NoteEditor) must equal RESULT_OK
+        // when the application crashed, the code would be RESULT_CANCELED
         if (requestCode == addNoteCode && resultCode == RESULT_OK) {
             getNote(addNoteCode);
         }
 
-        // jezeli notatka juz istniala, to jako wynik NoteEditorActivity dostaje request code aktualizacji konkretnej notatki
+        // if the note already existed, then as a result NoteEditorActivity receives a request code for updating a specific note
         else if (requestCode == updateNoteCode && resultCode == RESULT_OK) {
 
-            // getNote wywolywana jest tylko, gdy dane onActivityResult nie sa puste
+            // getNote is only called when the onActivityResult data is not empty
             // data element is the intent that activity returned as response parameters
             if (data != null) {
                 getNote(updateNoteCode);
