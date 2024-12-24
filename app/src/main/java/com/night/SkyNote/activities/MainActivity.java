@@ -18,6 +18,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -64,6 +65,16 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 startActivityForResult(new Intent(getApplicationContext(), NoteEditorActivity.class), addNoteCode);
             }
         });
+
+        FloatingActionButton settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         // setting the recycler layout, in this case vertical linearlayout
@@ -341,4 +352,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             }
         }
     }
+
+
 }

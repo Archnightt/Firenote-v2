@@ -15,4 +15,5 @@
     <color name="iosblack">#1c1c1e</color>
     <color name="ioswhiteBG">#f7f7f7</color>
     <color name="lightgrey">#aeb0b2</color>
+    <color name="red">#f01e2c</color>
 </resources>
