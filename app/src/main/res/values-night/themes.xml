@@ -7,8 +7,11 @@
         <!-- BACKGROUND COLOR-->
         <item name="colorPrimaryVariant">@color/black</item>
 
-        <!-- FONT COLOR-->
+        <!-- MAIN FONT COLOR-->
         <item name="colorOnPrimary">@color/white</item>
+
+        <!-- FONT COLOR -->
+        <item name="colorOnBackground">@color/ioswhiteBG</item>
 
         <!-- CONTRAST FONT COLOR-->
         <item name="colorSecondary">@color/lightorange</item>

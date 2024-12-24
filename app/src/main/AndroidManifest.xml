@@ -12,6 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notepad">
 
+        <activity android:name="com.night.SkyNote.activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="fullSensor"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="com.night.SkyNote.activities.NoteEditorActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="fullSensor"
@@ -21,11 +32,6 @@
             android:windowSoftInputMode="stateHidden"
             android:exported="true"
             android:screenOrientation="fullSensor" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"

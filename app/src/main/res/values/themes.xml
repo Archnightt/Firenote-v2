@@ -10,6 +10,9 @@
         <!-- MAIN FONT COLOR-->
         <item name="colorOnPrimary">@color/darkgrey</item>
 
+        <!-- FONT COLOR -->
+        <item name="colorOnBackground">@color/iosblack</item>
+
         <!-- CONTRAST FONT COLOR-->
         <item name="colorSecondary">@color/lightorange</item>
 
