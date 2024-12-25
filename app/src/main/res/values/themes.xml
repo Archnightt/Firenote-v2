@@ -19,8 +19,6 @@
         <!-- BACKGROUND NOTATKI-->
         <item name="colorSecondaryVariant">@color/ioswhiteBG</item>
 
-
-
         <!-- STATUSBAR -->
         <item name="colorOnSecondary">@color/white</item>
 

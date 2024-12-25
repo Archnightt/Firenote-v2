@@ -6,4 +6,7 @@
     <string name="login_twitter">Continue with Twitter</string>
     <string name="logout">Log out</string>
     <string name="default_web_client_id">"480316012622-pnc6nvthm9mfusbm40st56b063a73tth.apps.googleusercontent.com"</string>
+    <string name="done">Done</string>
+    <string name="note_title">Note title</string>
+    <string name="write_your_note_here">write your note here</string>
 </resources>

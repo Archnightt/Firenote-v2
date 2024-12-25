@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,11 +19,12 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.night.SkyNote.R;
 import com.night.SkyNote.adapters.NoteAdapter;
 import com.night.SkyNote.database.NotepadDatabase;
@@ -50,12 +52,22 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private AlertDialog deleteNoteDialog;
 
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        //Initialize Firebase Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        // Get reference to the settings FAB
+        findViewById(R.id.settingsButton).setOnClickListener(v -> showBottomSheetMenu());
 
         // add note button
         FloatingActionButton addNoteButton = findViewById(R.id.buttonAddNote);
@@ -63,15 +75,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getApplicationContext(), NoteEditorActivity.class), addNoteCode);
-            }
-        });
-
-        FloatingActionButton settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -116,6 +119,35 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 }
             }
         });
+    }
+
+    private void showBottomSheetMenu() {
+        // Create the BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        // Inflate the bottom sheet layout
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_menu, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        // Handle clicks on the bottom sheet items
+        TextView accountSettings = bottomSheetView.findViewById(R.id.account_settings);
+        TextView logout = bottomSheetView.findViewById(R.id.logout);
+
+        accountSettings.setOnClickListener(v -> {
+            // Perform action for "Account Settings"
+            bottomSheetDialog.dismiss();
+            // Add logic for navigating to account settings, if needed
+        });
+
+        logout.setOnClickListener(v -> {
+            mAuth.signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+
+        // Show the bottom sheet dialog
+        bottomSheetDialog.show();
     }
 
 

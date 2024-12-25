@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/tommy_medium"
         android:includeFontPadding="false"
-        android:text="All notes"
+        android:text="@string/all_notes"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/_33ssp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +71,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_10sdp"
-            app:tint="?attr/colorOnPrimary"></ImageView>
+            app:tint="?attr/colorOnPrimary"/>
 
         <EditText
             android:id="@+id/searchBar"
@@ -85,7 +85,7 @@
             android:background="@android:color/transparent"
             android:textColor="?attr/colorOnPrimary"
             android:inputType="text"
-            android:focusableInTouchMode="true"></EditText>
+            android:focusableInTouchMode="true"/>
 
     </LinearLayout>
 
@@ -103,8 +103,7 @@
         android:paddingStart="0dp"
         android:paddingBottom="@dimen/_170sdp"
         android:scrollbarStyle="outsideOverlay"
-        android:hapticFeedbackEnabled="true"
-        ></androidx.recyclerview.widget.RecyclerView>
+        android:hapticFeedbackEnabled="true"/>
 
 <!--    <Button-->
 <!--        android:id="@+id/buttonAddNote"-->
@@ -127,7 +126,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_add"
-        android:layout_margin="@dimen/_30sdp"
-        />
+        android:layout_margin="@dimen/_30sdp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

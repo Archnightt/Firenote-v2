@@ -33,7 +33,7 @@
                 android:src="@drawable/ic_arrow_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/lightorange"></ImageView>
+                app:tint="@color/lightorange"/>
 
             <TextView
                 android:id="@+id/buttonSave"
@@ -42,12 +42,12 @@
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:fontFamily="@font/tommy_medium"
-                android:text="Done"
+                android:text="@string/done"
                 android:textAlignment="center"
                 android:textColor="@color/lightorange"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintBottom_toBottomOf="@id/buttonBack"
-                app:layout_constraintEnd_toEndOf="parent"></TextView>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <EditText
                 android:id="@+id/noteTitle"
@@ -58,13 +58,13 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 android:background="@null"
                 android:fontFamily="@font/tommy_bold"
-                android:hint="Note title"
+                android:hint="@string/note_title"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="@dimen/_27ssp"
-                app:layout_constraintTop_toBottomOf="@id/buttonBack"></EditText>
+                app:layout_constraintTop_toBottomOf="@id/buttonBack"/>
 
 
             <EditText
@@ -78,7 +78,7 @@
                 android:background="@null"
                 android:fontFamily="@font/tommy_regular"
                 android:gravity="top"
-                android:hint="write your note here"
+                android:hint="@string/write_your_note_here"
                 android:importantForAutofill="no"
                 android:includeFontPadding="false"
                 android:inputType="textMultiLine"
@@ -86,7 +86,7 @@
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/noteTitle"></EditText>
+                app:layout_constraintTop_toBottomOf="@id/noteTitle"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

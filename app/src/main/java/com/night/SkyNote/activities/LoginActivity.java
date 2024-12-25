@@ -3,12 +3,13 @@ package com.night.SkyNote.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,9 +28,23 @@ import com.night.SkyNote.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
+
+    // Activity Result Launcher for Google Sign-In
+    private final ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Intent data = result.getData();
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    handleGoogleSignInResult(task);
+                } else {
+                    Log.w("LoginActivity", "Google Sign-In failed");
+                    Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,37 +63,17 @@ public class LoginActivity extends AppCompatActivity {
 
         // Google Sign-In Button
         Button googleButton = findViewById(R.id.btn_google);
-        googleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInWithGoogle();
-            }
-        });
+        googleButton.setOnClickListener(v -> signInWithGoogle());
 
         // Twitter Sign-In Button
         Button twitterButton = findViewById(R.id.btn_twitter);
-        twitterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInWithTwitter();
-            }
-        });
+        twitterButton.setOnClickListener(v -> signInWithTwitter());
     }
 
     // Google Sign-In
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleGoogleSignInResult(task);
-        }
+        googleSignInLauncher.launch(signInIntent);
     }
 
     private void handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -86,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             firebaseAuthWithGoogle(account);
         } catch (ApiException e) {
-            Log.w("LoginActivity", "Google sign in failed", e);
-            Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show();
+            Log.w("LoginActivity", "Google sign-in failed", e);
+            Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show();
         }
     }
 

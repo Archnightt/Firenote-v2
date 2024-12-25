@@ -7,12 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.CollectionReference;
 
 import com.night.SkyNote.R;
 import com.night.SkyNote.database.NotepadDatabase;
@@ -24,6 +29,11 @@ public class NoteEditorActivity extends AppCompatActivity {
     private EditText inputNote;
     private NoteEntity noteAlreadyExists;
 
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private String docid;
+    private Bundle bundle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,9 @@ public class NoteEditorActivity extends AppCompatActivity {
         inputTitle = findViewById(R.id.noteTitle);
         inputNote = findViewById(R.id.noteBody);
 
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         // back button
         ImageView buttonBack = findViewById(R.id.buttonBack);
@@ -57,21 +70,24 @@ public class NoteEditorActivity extends AppCompatActivity {
             }
         });
 
-
+        if (getIntent().getBooleanExtra("isNoteUpdated", false)) {
+            noteAlreadyExists = (NoteEntity) getIntent().getSerializableExtra("note");
+            setNoteUpdate();
+        }
 
 
         // TODO: 26/06/2021 find a way to store formatting, it does not save in android room
-//        // bold button
-//        ImageView buttonBold = findViewById(R.id.buttonBold);
-//        buttonBold.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-//                spannable.setSpan(new StyleSpan(Typeface.BOLD), inputNote.getSelectionStart(), inputNote.getSelectionEnd(), 0);
-//                inputNote.setText(spannable);
-//            }
-//        });
-//
+//        bold button
+  /*    ImageView buttonBold = findViewById(R.id.buttonBold);
+        buttonBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
+                spannable.setSpan(new StyleSpan(Typeface.BOLD), inputNote.getSelectionStart(), inputNote.getSelectionEnd(), 0);
+                inputNote.setText(spannable);
+            }
+        });
+*/
 //
 //        // italics button
 //        ImageView buttonItalic = findViewById(R.id.buttonItalic);
@@ -150,6 +166,12 @@ public class NoteEditorActivity extends AppCompatActivity {
             return;
         }
 
+        // Get the currently logged-in user
+        String userId = auth.getCurrentUser().getUid();
+
+        // Create a reference to the user's collection
+        CollectionReference userNotes = db.collection("users").document(userId).collection("notes");
+
         // if the note contains a title and text, it creates a NoteEntity with what was entered
         final NoteEntity noteEntity = new NoteEntity();
         noteEntity.setNoteTitle(inputTitle.getText().toString());
@@ -160,6 +182,7 @@ public class NoteEditorActivity extends AppCompatActivity {
         if (noteAlreadyExists != null) {
             noteEntity.setNoteID(noteAlreadyExists.getNoteID());
         }
+
 
 
         /////////////////////
