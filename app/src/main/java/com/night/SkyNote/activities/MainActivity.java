@@ -20,16 +20,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.night.SkyNote.R;
 import com.night.SkyNote.adapters.NoteAdapter;
 import com.night.SkyNote.database.NotepadDatabase;
 import com.night.SkyNote.entities.NoteEntity;
 import com.night.SkyNote.listeners.NoteListener;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
+import com.bumptech.glide.Glide;
+import android.net.Uri;
+import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private FirebaseAuth mAuth;
 
+    private ImageView profileImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
         // Get reference to the settings FAB
         findViewById(R.id.settingsButton).setOnClickListener(v -> showBottomSheetMenu());
+
+        // Get reference to the profile image view
+        profileImageView = findViewById(R.id.settingsButton);
+        // Fetch and display the profile picture
+        fetchAndDisplayProfilePicture();
 
         // add note button
         FloatingActionButton addNoteButton = findViewById(R.id.buttonAddNote);
@@ -121,6 +134,22 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         });
     }
 
+    private void fetchAndDisplayProfilePicture() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            Uri photoUrl = currentUser.getPhotoUrl();
+            if (photoUrl != null) {
+                Glide.with(this)
+                        .load(photoUrl)
+                        .into(profileImageView);
+            } else {
+                // Handle the case where the user doesn't have a photo URL
+                profileImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_account));
+            }
+        }
+    }
+
     private void showBottomSheetMenu() {
         // Create the BottomSheetDialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -144,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
-
 
         // Show the bottom sheet dialog
         bottomSheetDialog.show();

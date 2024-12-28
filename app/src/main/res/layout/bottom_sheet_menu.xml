@@ -2,16 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/dialog_background"
     android:layout_gravity="bottom"
     android:padding="16dp">
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_pill"
+        android:layout_gravity="center" />
+    />
+
+
     <TextView
         android:id="@+id/account_settings"
+        android:drawableLeft="@drawable/ic_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/tommy_regular"
         android:paddingStart="@dimen/_10sdp"
+        android:textColor="?attr/colorOnBackground"
+        android:drawablePadding="@dimen/_10ssp"
         android:gravity="center_vertical"
         android:padding="8dp"
         android:text="Account Settings"
@@ -19,6 +32,7 @@
         android:textStyle="bold"
         android:clickable="true"
         android:focusable="true" />
+
 
     <TextView
         android:id="@+id/logout"
@@ -36,5 +50,5 @@
         android:text="Log Out"
         android:textSize="16sp"
         android:textStyle="bold" />
-
 </LinearLayout>
+

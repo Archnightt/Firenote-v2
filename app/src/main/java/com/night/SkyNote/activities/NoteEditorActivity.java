@@ -8,12 +8,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -77,40 +83,57 @@ public class NoteEditorActivity extends AppCompatActivity {
 
 
         // TODO: 26/06/2021 find a way to store formatting, it does not save in android room
-//        bold button
-  /*    ImageView buttonBold = findViewById(R.id.buttonBold);
+// bold button
+        ImageView buttonBold = findViewById(R.id.buttonBold);
         buttonBold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int start = inputNote.getSelectionStart();
+                int end = inputNote.getSelectionEnd();
+                if (start < 0 || end < 0) {
+                    return;
+                }
+
                 Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-                spannable.setSpan(new StyleSpan(Typeface.BOLD), inputNote.getSelectionStart(), inputNote.getSelectionEnd(), 0);
+                spannable.setSpan(new StyleSpan(Typeface.BOLD), start, end, 0);
                 inputNote.setText(spannable);
             }
         });
-*/
-//
-//        // italics button
-//        ImageView buttonItalic = findViewById(R.id.buttonItalic);
-//        buttonItalic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-//                spannable.setSpan(new StyleSpan(Typeface.ITALIC), inputNote.getSelectionStart(), inputNote.getSelectionEnd(), 0);
-//                inputNote.setText(spannable);
-//            }
-//        });
-//
-//
-//        // underline button
-//        ImageView buttonUnderline = findViewById(R.id.buttonUnderline);
-//        buttonUnderline.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-//                spannable.setSpan(new UnderlineSpan(), inputNote.getSelectionStart(), inputNote.getSelectionEnd(), 0);
-//                inputNote.setText(spannable);
-//            }
-//        });
+
+// italics button
+        ImageView buttonItalic = findViewById(R.id.buttonItalic);
+        buttonItalic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int start = inputNote.getSelectionStart();
+                int end = inputNote.getSelectionEnd();
+                if (start < 0 || end < 0) {
+                    return;
+                }
+
+                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
+                spannable.setSpan(new StyleSpan(Typeface.ITALIC), start, end, 0);
+                inputNote.setText(spannable);
+            }
+        });
+
+// underline button
+        ImageView buttonUnderline = findViewById(R.id.buttonUnderline);
+        buttonUnderline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int start = inputNote.getSelectionStart();
+                int end = inputNote.getSelectionEnd();
+                if (start < 0 || end < 0) {
+                    return;
+                }
+
+                Spannable spannable = new SpannableStringBuilder(inputNote.getText());
+                spannable.setSpan(new UnderlineSpan(), start, end, 0);
+                inputNote.setText(spannable);
+            }
+        });
+
 
 
 
