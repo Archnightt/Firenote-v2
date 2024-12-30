@@ -1,10 +1,10 @@
 package com.night.SkyNote.listeners;
 
-import com.night.SkyNote.entities.NoteEntity;
+import java.util.Map;
 
-// zewnetrzny listener do elementow recyclerview (konkretnych notatek)
+// External listener for RecyclerView items (specific notes)
 public interface NoteListener {
-    void noteClicked(NoteEntity noteEntity, int position);
+    void noteClicked(Map<String, Object> note, int position);
 
-    void noteLongClicked(NoteEntity noteEntity, int position);
+    void noteLongClicked(Map<String, Object> note, int position);
 }
