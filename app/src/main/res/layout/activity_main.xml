@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryVariant"
+    android:background="?attr/colorOnSecondary"
     tools:context=".activities.MainActivity">
 
 
@@ -124,19 +124,6 @@
         android:scrollbarStyle="outsideOverlay"
         android:hapticFeedbackEnabled="true"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/buttonAddNote"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="@dimen/_40sdp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:text="Add note"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:fontFamily="@font/tommy_medium"-->
-<!--        android:background="@drawable/button_rounded"-->
-<!--        android:layout_margin="@dimen/_15sdp"-->
-<!--        android:textSize="@dimen/_12sdp"-->
-<!--        android:animateLayoutChanges="true"-->
-<!--        />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddNote"

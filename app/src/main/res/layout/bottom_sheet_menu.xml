@@ -2,25 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/dialog_background"
+    android:background="@drawable/drawer_background"
+    android:backgroundTint="?attr/colorSecondaryVariant"
     android:layout_gravity="bottom"
     android:padding="16dp">
 
     <ImageView
         android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:background="@drawable/ic_pill"
-        android:layout_gravity="center" />
-    />
+        android:layout_height="20dp"
+        android:background="@drawable/ic_slider"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_20ssp" />
 
 
     <TextView
         android:id="@+id/account_settings"
         android:drawableLeft="@drawable/ic_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+
         android:fontFamily="@font/tommy_regular"
         android:paddingStart="@dimen/_10sdp"
         android:textColor="?attr/colorOnBackground"
@@ -28,21 +30,26 @@
         android:gravity="center_vertical"
         android:padding="8dp"
         android:text="Account Settings"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:textSize="16sp"
         android:textStyle="bold"
         android:clickable="true"
         android:focusable="true" />
 
 
+
     <TextView
         android:id="@+id/logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_gravity="center"
+        android:layout_height="50dp"
+
         android:fontFamily="@font/tommy_regular"
         android:drawableLeft="@drawable/ic_logout"
         android:paddingStart="@dimen/_10sdp"
         android:drawablePadding="@dimen/_10ssp"
         android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/red"
         android:clickable="true"
         android:focusable="true"

@@ -20,8 +20,7 @@
         android:fontFamily="@font/tommy_medium"
         android:layout_marginTop="@dimen/_18sdp"
         android:layout_marginLeft="@dimen/_22sdp"
-        android:textColor="?attr/colorOnPrimary"
-        ></TextView>
+        android:textColor="?attr/colorOnPrimary"/>
 
     <TextView
         android:id="@+id/noticeSubtitle"
@@ -33,9 +32,7 @@
         android:fontFamily="@font/tommy_regular"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_22sdp"
-        android:textColor="?attr/colorOnPrimary"
-
-        ></TextView>
+        android:textColor="?attr/colorOnPrimary"/>
 
     <Button
         android:id="@+id/buttonCancel"
@@ -52,8 +49,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_21sdp"
         android:layout_marginLeft="@dimen/_17sdp"
-        android:textAllCaps="false"
-        ></Button>
+        android:textAllCaps="false"/>
 
     <View
         android:layout_width="@dimen/_1sdp"
@@ -62,8 +58,7 @@
         app:layout_constraintEnd_toStartOf="@id/buttonDelete"
         app:layout_constraintTop_toBottomOf="@id/noticeSubtitle"
         android:layout_marginTop="@dimen/_29sdp"
-        android:background="@color/lightgrey"
-        ></View>
+        android:background="@color/lightgrey"/>
 
     <Button
         android:id="@+id/buttonDelete"
@@ -80,7 +75,6 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_21sdp"
         android:layout_marginRight="@dimen/_17sdp"
-        android:textAllCaps="false"
-        ></Button>
+        android:textAllCaps="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

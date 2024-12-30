@@ -21,7 +21,7 @@
         android:fontFamily="@font/tommy_medium"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="@dimen/_15sdp"
-        android:maxLines="1"></TextView>
+        android:maxLines="1"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:fontFamily="@font/tommy_regular"
         android:textColor="@color/grey"
         android:textSize="@dimen/_11sdp"
-        android:maxLines="3"></TextView>
+        android:maxLines="3"/>
 
 
 </LinearLayout>

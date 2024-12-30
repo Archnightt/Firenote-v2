@@ -4,7 +4,8 @@
     <color name="white">#ffffff</color>
     <color name="lightblue">#a0c4ff</color>
     <color name="grey">#89888d</color>
-    <color name="darkgrey">#46494c</color>
+    <color name="lightgrey">#d1d1d1</color>
+    <color name="darkgrey">#2e2e2e</color>
     <color name="black">#000000</color>
     <color name="lighterblack">#1c1c1e</color>
     <color name="orange">#ffb703</color>
@@ -14,6 +15,5 @@
     <color name="samsungblack">#171717</color>
     <color name="iosblack">#1c1c1e</color>
     <color name="ioswhiteBG">#f7f7f7</color>
-    <color name="lightgrey">#aeb0b2</color>
     <color name="red">#f01e2c</color>
 </resources>

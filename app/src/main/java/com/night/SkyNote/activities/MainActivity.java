@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private void showBottomSheetMenu() {
         // Create the BottomSheetDialog
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialog);
 
         // Inflate the bottom sheet layout
         View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_menu, null);
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             startActivity(intent);
         });
 
+        bottomSheetDialog.setContentView(bottomSheetView);
         // Show the bottom sheet dialog
         bottomSheetDialog.show();
     }
@@ -320,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     ////////////////////////////
-    // METODA NOTECOUNTER LABEL
+    // METHOD NOTECOUNTER
     ////////////////////////////
     public void noteCounterSetLabel() {
         TextView noteCountView = findViewById(R.id.noteCount);
@@ -329,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     /////////////////////
-    // METHOD GETNOTE
+    // METHOD GET NOTE
     /////////////////////
     private void getNote(final int request) {
 
@@ -396,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         // if a new note has been created, the request code for adding a single note is passed to the onActivityResult method
-        // for okzai, the result code of the previous activity (NoteEditor) must equal RESULT_OK
+        // for okay, the result code of the previous activity (NoteEditor) must equal RESULT_OK
         // when the application crashed, the code would be RESULT_CANCELED
         if (requestCode == addNoteCode && resultCode == RESULT_OK) {
             getNote(addNoteCode);
