@@ -1,6 +1,5 @@
 package com.night.SkyNote.activities;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,8 +19,6 @@ import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 
 import com.night.SkyNote.R;
@@ -71,19 +65,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Search pop-up functionality
-        ImageView searchIcon = findViewById(R.id.searchIcon);
-        searchIcon.setOnClickListener(v -> showSearchDialog());
-
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize Firebase Firestore with persistence enabled
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
         db = FirebaseFirestore.getInstance();
-        db.setFirestoreSettings(settings);
 
         // Check if the user is signed in
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -100,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         FloatingActionButton addNoteButton = findViewById(R.id.buttonAddNote);
         addNoteButton.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), NoteEditorActivity.class), addNoteCode));
         findViewById(R.id.settingsButton).setOnClickListener(v -> showBottomSheetMenu());
+
+        //Search pop-up functionality
+        ImageView searchIcon = findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(v -> showSearchDialog());
 
         // Setup RecyclerView
         noteRecycler = findViewById(R.id.noteRecycler);
@@ -175,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                         }
 
                         // Update RecyclerView and note counter
-                        noteAdapter.notifyDataSetChanged();
+                        noteAdapter.notifyItemRangeInserted(0, noteList.size());
                         noteCounterSetLabel();
                     }
                 });
