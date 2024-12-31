@@ -116,17 +116,24 @@ public class NoteEditorActivity extends AppCompatActivity {
 
         if (isUpdate) {
             userNotesRef.document(noteId).set(note)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(this, "Note updated successfully!", Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Note updated successfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, MainActivity.class)); // Navigate back
+                        finish();
+                    })
                     .addOnFailureListener(e -> Toast.makeText(this, "Failed to update note!", Toast.LENGTH_SHORT).show());
         } else {
             userNotesRef.add(note)
-                    .addOnSuccessListener(documentReference -> Toast.makeText(this, "Note added successfully!", Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Note added successfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, MainActivity.class)); // Navigate back
+                        finish();
+                    })
                     .addOnFailureListener(e -> Toast.makeText(this, "Failed to add note!", Toast.LENGTH_SHORT).show());
         }
-
-        // Navigate back to MainActivity immediately
-        finish();
     }
+
+
 
     // Hide the keyboard
     public void closeKeyboard() {

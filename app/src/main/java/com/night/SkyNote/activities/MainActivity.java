@@ -259,10 +259,50 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            // No need to reload or fetch manually; Firestore listener handles this
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == addNoteCode) {
+                // Handle adding a new note
+                String noteId = data.getStringExtra("noteId");
+                fetchNoteById(noteId);
+            } else if (requestCode == updateNoteCode) {
+                // Handle updating an existing note
+                String noteId = data.getStringExtra("noteId");
+                updateNoteInList(noteId);
+            }
             Toast.makeText(this, "Changes applied successfully!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void fetchNoteById(String noteId) {
+        String userId = mAuth.getCurrentUser().getUid();
+        db.collection("users").document(userId).collection("notes").document(noteId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Map<String, Object> note = new HashMap<>(documentSnapshot.getData());
+                        note.put("noteId", documentSnapshot.getId());
+                        noteList.add(0, note);
+                        noteAdapter.notifyItemInserted(0);
+                        noteCounterSetLabel();
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Failed to fetch note!", Toast.LENGTH_SHORT).show());
+    }
+
+    private void updateNoteInList(String noteId) {
+        String userId = mAuth.getCurrentUser().getUid();
+        db.collection("users").document(userId).collection("notes").document(noteId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Map<String, Object> updatedNote = new HashMap<>(documentSnapshot.getData());
+                        updatedNote.put("noteId", documentSnapshot.getId());
+                        noteList.set(clickedNotePosition, updatedNote);
+                        noteAdapter.notifyItemChanged(clickedNotePosition);
+                        noteCounterSetLabel();
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Failed to update note!", Toast.LENGTH_SHORT).show());
     }
 
 
