@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_gravity="top"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/search_background"
+        android:backgroundTint="?attr/colorSecondaryVariant"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/tommy_regular"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="@dimen/_15sdp" />
+</LinearLayout>

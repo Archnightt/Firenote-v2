@@ -1,5 +1,6 @@
 package com.night.SkyNote.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -21,6 +23,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +35,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
+
 import com.night.SkyNote.R;
 import com.night.SkyNote.adapters.NoteAdapter;
 import com.night.SkyNote.listeners.NoteListener;
@@ -48,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     /////////////////////
     public static final int addNoteCode = 1;
     public static final int updateNoteCode = 2;
-
     private RecyclerView noteRecycler;
     private List<Map<String, Object>> noteList;
     private NoteAdapter noteAdapter;
@@ -66,9 +71,19 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Search pop-up functionality
+        ImageView searchIcon = findViewById(R.id.searchIcon);
+        searchIcon.setOnClickListener(v -> showSearchDialog());
+
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
+
+        // Initialize Firebase Firestore with persistence enabled
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
         db = FirebaseFirestore.getInstance();
+        db.setFirestoreSettings(settings);
 
         // Check if the user is signed in
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -98,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         listenToNotesInFirestore();
 
         // Search bar functionality
-        EditText searchBar = findViewById(R.id.searchBar);
+        View searchDialogView = LayoutInflater.from(this).inflate(R.layout.search_dialog, null);
+        EditText searchBar = searchDialogView.findViewById(R.id.searchBar);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -117,6 +133,19 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         });
     }
 
+    // Search dialog method
+    private void showSearchDialog() {
+        Dialog searchDialog = new Dialog(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View searchDialogView = inflater.inflate(R.layout.search_dialog, null);
+        searchDialog.setContentView(searchDialogView);
+
+        EditText searchBar = searchDialogView.findViewById(R.id.searchBar);
+        searchBar.requestFocus();
+
+        searchDialog.show();
+    }
+
     private void fetchAndDisplayProfilePicture() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null && currentUser.getPhotoUrl() != null) {
@@ -130,25 +159,26 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         CollectionReference userNotesRef = db.collection("users").document(userId).collection("notes");
 
-        userNotesRef.addSnapshotListener((snapshots, e) -> {
-            if (e != null) {
-                Toast.makeText(this, "Failed to listen for updates: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                return;
-            }
+        userNotesRef.orderBy("timestamp", Query.Direction.DESCENDING)
+                .addSnapshotListener((snapshots, e) -> {
+                    if (e != null) {
+                        Toast.makeText(this, "Failed to listen for updates: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-            if (snapshots != null) {
-                noteList.clear();
-                for (QueryDocumentSnapshot document : snapshots) {
-                    Map<String, Object> note = new HashMap<>(document.getData());
-                    note.put("noteId", document.getId());
-                    noteList.add(note);
-                }
+                    if (snapshots != null) {
+                        noteList.clear();
+                        for (QueryDocumentSnapshot document : snapshots) {
+                            Map<String, Object> note = new HashMap<>(document.getData());
+                            note.put("noteId", document.getId());
+                            noteList.add(note);
+                        }
 
-                // Update RecyclerView and note counter
-                noteAdapter.notifyDataSetChanged();
-                noteCounterSetLabel();
-            }
-        });
+                        // Update RecyclerView and note counter
+                        noteAdapter.notifyDataSetChanged();
+                        noteCounterSetLabel();
+                    }
+                });
     }
 
 

@@ -14,7 +14,7 @@
 
         <activity android:name="com.night.SkyNote.activities.LoginActivity"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="true">
 
             <intent-filter>
@@ -25,24 +25,27 @@
 
         <activity android:name="com.night.SkyNote.activities.NoteEditorActivity"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <activity android:name="com.night.SkyNote.activities.MainActivity"
             android:windowSoftInputMode="stateHidden"
-            android:exported="true"
-            android:screenOrientation="fullSensor" >
+            android:screenOrientation="portrait"
+            android:exported="true">
         </activity>
 
         <activity android:name="com.night.SkyNote.activities.SettingsActivity"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="true">
         </activity>
 
         <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
-            android:exported="false" />  <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
-        android:exported="false" />  <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
-        android:exported="false" />  </application>
+            android:exported="false" />
+        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+        android:exported="false" />
+        <activity android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+        android:exported="false" />
+    </application>
 
 </manifest>

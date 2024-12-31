@@ -102,31 +102,30 @@ public class NoteEditorActivity extends AppCompatActivity {
             return;
         }
 
-        String userId = auth.getCurrentUser().getUid();
-        CollectionReference userNotes = db.collection("users").document(userId).collection("notes");
-
         Map<String, Object> noteData = new HashMap<>();
         noteData.put("noteTitle", inputTitle.getText().toString());
         noteData.put("noteBody", inputNote.getText().toString());
         noteData.put("timestamp", System.currentTimeMillis());
 
-        if (isNoteUpdated) {
-            // Update existing note
-            userNotes.document(noteId).set(noteData)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "Note updated successfully!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to update note: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        addOrUpdateNoteInFirestore(noteData, isNoteUpdated);
+    }
+
+    private void addOrUpdateNoteInFirestore(Map<String, Object> note, boolean isUpdate) {
+        String userId = auth.getCurrentUser().getUid();
+        CollectionReference userNotesRef = db.collection("users").document(userId).collection("notes");
+
+        if (isUpdate) {
+            userNotesRef.document(noteId).set(note)
+                    .addOnSuccessListener(aVoid -> Toast.makeText(this, "Note updated successfully!", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to update note!", Toast.LENGTH_SHORT).show());
         } else {
-            // Create a new note
-            userNotes.add(noteData)
-                    .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to save note: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            userNotesRef.add(note)
+                    .addOnSuccessListener(documentReference -> Toast.makeText(this, "Note added successfully!", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to add note!", Toast.LENGTH_SHORT).show());
         }
+
+        // Navigate back to MainActivity immediately
+        finish();
     }
 
     // Hide the keyboard

@@ -10,4 +10,5 @@
     <string name="note_title">Note title</string>
     <string name="write_your_note_here">write your note here</string>
     <string name="profile_image_desc" />
+    <string name="search">Search</string>
 </resources>

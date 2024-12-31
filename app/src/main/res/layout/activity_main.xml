@@ -1,134 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorOnSecondary"
-    tools:context=".activities.MainActivity">
+    android:background="?attr/colorOnSecondary">
 
-
-    <TextView
-        android:id="@+id/notepadTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/tommy_medium"
-        android:includeFontPadding="false"
-        android:text="@string/all_notes"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="@dimen/_33ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/settingsButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_account"
-        android:layout_marginBottom="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
-        app:layout_constraintStart_toEndOf="@+id/notepadTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.072"
-        android:clickable="true"
-        android:focusable="true"/>
-
-    <!--
-    <ImageButton
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:background="@drawable/ic_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.617"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
-
-    -->
-
-    <TextView
+    <!-- AppBarLayout for collapsing content -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/noteCount"
-        android:layout_marginStart="@dimen/_19sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:layout_marginEnd="@dimen/_19sdp"
-        android:fontFamily="@font/tommy_light"
-        app:layout_constraintTop_toBottomOf="@id/notepadTitle"
-        android:includeFontPadding="false"
-        android:text="- notes"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="?attr/colorOnPrimary"
-        />
+        android:layout_height="360dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/noteCount"
-        android:background="@drawable/search_background"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:backgroundTint="?attr/colorSecondaryVariant"
-        android:id="@+id/searchLayout">
-
-        <ImageView
-            android:layout_height="@dimen/_22sdp"
-            android:layout_width="@dimen/_22sdp"
-            android:src="@drawable/ic_search"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:tint="?attr/colorOnPrimary"/>
-
-        <EditText
-            android:id="@+id/searchBar"
+        <!-- CollapsingToolbarLayout -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:hint="Search"
-            android:fontFamily="@font/tommy_regular"
-            android:textSize="@dimen/_15sdp"
-            android:background="@android:color/transparent"
-            android:textColor="?attr/colorOnPrimary"
-            android:inputType="text"
-            android:focusableInTouchMode="true"/>
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="?attr/colorOnSecondary"
+            app:contentScrim="?attr/colorOnSecondary">
 
-    </LinearLayout>
+            <!-- Top Content (Title, Counter, Search Bar, Settings Button) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/notepadTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="140dp"
+                    android:fontFamily="@font/tommy_medium"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/all_notes"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="@dimen/_33ssp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/noteRecycler"
+                <!-- Note Counter -->
+
+                <!-- Search Icon -->
+
+                <TextView
+                    android:id="@+id/noteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/settingsButton"
+                    android:layout_marginTop="237dp"
+                    android:fontFamily="@font/tommy_light"
+                    android:includeFontPadding="false"
+                    android:text="- notes"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="@dimen/_15sdp" />
+
+                <!-- Settings Button -->
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:src="@drawable/ic_search"
+                    app:tint="?attr/colorOnPrimary" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/settingsButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="7dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_account" />
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- NestedScrollView for better scrolling performance -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonAddNote"
-        android:layout_marginTop="36dp"
-        android:clipToPadding="false"
-        android:hapticFeedbackEnabled="true"
-        android:paddingStart="0dp"
-        android:paddingBottom="@dimen/_170sdp"
-        android:scrollbarStyle="outsideOverlay"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- RecyclerView for Notes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/noteRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="0dp"
+            android:scrollbars="vertical" />
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_add"
-        android:layout_margin="@dimen/_30sdp" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="30dp"
+        android:src="@drawable/ic_add"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

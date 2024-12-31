@@ -16,7 +16,7 @@
         android:textAllCaps="false"
         android:textColor="?attr/colorSecondaryVariant"
         android:textSize="15sp"
-        app:backgroundTint="?attr/colorOnBackground"
+        app:backgroundTint="#272727"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:textAllCaps="false"
         android:textColor="?attr/colorOnSecondary"
         android:textSize="15dp"
-        app:backgroundTint="?attr/colorOnBackground"
+        app:backgroundTint="#272727"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +155,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.007"
-        app:srcCompat="@drawable/rb_5850" />
+        app:srcCompat="@drawable/rblogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
