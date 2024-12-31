@@ -22,6 +22,9 @@
         <!-- STATUS BAR -->
         <item name="colorOnSecondary">@color/black</item>
 
+        <!-- BUTTON COLOR -->
+        <item name ="colorButtonNormal">@color/light</item>
+
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnSecondary</item>
         <item name="android:windowLightStatusBar">false</item>
 

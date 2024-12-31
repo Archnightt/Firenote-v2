@@ -16,4 +16,6 @@
     <color name="iosblack">#1c1c1e</color>
     <color name="ioswhiteBG">#f7f7f7</color>
     <color name="red">#f01e2c</color>
+    <color name="light">#fefefe</color>
+    <color name="dark">#272727</color>
 </resources>
