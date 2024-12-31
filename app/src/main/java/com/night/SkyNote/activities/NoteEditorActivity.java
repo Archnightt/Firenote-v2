@@ -159,8 +159,9 @@ public class NoteEditorActivity extends AppCompatActivity {
         if (start < 0 || end < 0) return;
 
         Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-        spannable.setSpan(new StyleSpan(style), start, end, 0);
+        spannable.setSpan(new StyleSpan(style), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         inputNote.setText(spannable);
+        inputNote.setSelection(start, end); // Maintain cursor position
     }
 
     // Underline text
@@ -170,7 +171,8 @@ public class NoteEditorActivity extends AppCompatActivity {
         if (start < 0 || end < 0) return;
 
         Spannable spannable = new SpannableStringBuilder(inputNote.getText());
-        spannable.setSpan(new UnderlineSpan(), start, end, 0);
+        spannable.setSpan(new UnderlineSpan(), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         inputNote.setText(spannable);
+        inputNote.setSelection(start, end); // Maintain cursor position
     }
 }

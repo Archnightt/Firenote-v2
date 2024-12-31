@@ -15,6 +15,7 @@ import com.night.SkyNote.R;
 import com.night.SkyNote.listeners.NoteListener;
 
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +39,43 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.note_layout, parent, false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
+        return new NoteViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, final int position) {
-        holder.setNote(notes.get(position));
-        holder.noteLayout.setOnClickListener(v -> noteListener.noteClicked(notes.get(position), position));
-        holder.noteLayout.setOnLongClickListener(v -> {
-            noteListener.noteLongClicked(notes.get(position), position);
+        Map<String, Object> note = notes.get(position);
+
+        // Fetch note body directly from the Map or Firestore
+        String title = note.get("noteTitle") != null ? note.get("noteTitle").toString() : "Untitled";
+        String content = note.get("noteBody") != null ? note.get("noteBody").toString() : "";
+
+        holder.noteTitle.setText(title);
+        holder.noteContent.setText(content);
+
+// Adjust height based on content length
+        int contentLength = content.length();
+        ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+
+// Set height dynamically for long content; use WRAP_CONTENT for all cases to avoid cropping
+        if (contentLength > 100) {
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Allow dynamic resizing for longer content
+        } else {
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Short notes should also wrap their content
+        }
+
+        holder.itemView.setLayoutParams(params);
+
+
+        // Handle click listeners as before
+        holder.itemView.setOnClickListener(v -> noteListener.noteClicked(note, position));
+        holder.itemView.setOnLongClickListener(v -> {
+            noteListener.noteLongClicked(note, position);
             return true;
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -61,22 +87,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return position;
     }
 
-    static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView noteLayoutTitle;
-        TextView noteLayoutBody;
+    public static class NoteViewHolder extends RecyclerView.ViewHolder {
+        TextView noteTitle;
+        TextView noteContent;
         LinearLayout noteLayout;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteLayoutTitle = itemView.findViewById(R.id.noteLayoutTitle);
-            noteLayoutBody = itemView.findViewById(R.id.noteLayoutBody);
+            noteTitle = itemView.findViewById(R.id.noteTitle);
+            noteContent = itemView.findViewById(R.id.noteContent);
             noteLayout = itemView.findViewById(R.id.noteLayout);
+            noteContent = itemView.findViewById(R.id.noteContent);
         }
 
         void setNote(Map<String, Object> note) {
             // Set the title and body from Firestore data
-            noteLayoutTitle.setText((String) note.get("noteTitle"));
-            noteLayoutBody.setText(StringUtils.abbreviate((String) note.get("noteBody"), 120));
+            noteTitle.setText((String) note.get("noteTitle"));
+            noteContent.setText(StringUtils.abbreviate((String) note.get("noteBody"), 120));
         }
     }
 
