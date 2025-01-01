@@ -13,12 +13,16 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -204,51 +208,44 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     @Override
     public void noteLongClicked(Map<String, Object> note, int position) {
         longClickedNotePosition = position;
-        deleteDialog(note, longClickedNotePosition);
+        deleteNoteDialog(note, longClickedNotePosition);
         getWindow().getDecorView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
     }
 
-    private void deleteDialog(Map<String, Object> note, int position) {
-        if (deleteNoteDialog == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            View view = LayoutInflater.from(this).inflate(R.layout.delete_layout, findViewById(R.id.layoutDeleteNoteBox));
-            builder.setView(view);
-            deleteNoteDialog = builder.create();
+    // Assuming the position of the note to delete is passed
+    private void deleteNoteDialog(Map<String, Object> note, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = LayoutInflater.from(this).inflate(R.layout.delete_layout, null);
+        builder.setView(view);
+        AlertDialog deleteNoteDialog = builder.create();
+        deleteNoteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
-            if (deleteNoteDialog.getWindow() != null) {
-                deleteNoteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-            }
+        view.findViewById(R.id.buttonDelete).setOnClickListener(v -> {
+            String userId = mAuth.getCurrentUser().getUid();
+            String noteId = (String) note.get("noteId");
 
-            view.findViewById(R.id.buttonDelete).setOnClickListener(v -> {
-                String userId = mAuth.getCurrentUser().getUid();
-                String noteId = (String) note.get("noteId");
+            db.collection("users").document(userId).collection("notes").document(noteId)
+                    .delete()
+                    .addOnSuccessListener(aVoid -> {
+                        // Remove the note from the adapter list
+                        noteAdapter.deleteNoteAtPosition(position);
+                        // Optionally update any other UI elements or counters
+                        noteCounterSetLabel();
+                        // Dismiss the dialog and reload activity if needed
+                        deleteNoteDialog.dismiss();
+                    })
+                    .addOnFailureListener(e -> {
+                        deleteNoteDialog.dismiss();
+                        Toast.makeText(this, "Failed to delete note!", Toast.LENGTH_SHORT).show();
+                    });
+        });
 
-                db.collection("users").document(userId).collection("notes").document(noteId)
-                        .delete()
-                        .addOnSuccessListener(aVoid -> {
-                            noteList.remove(position);
-                            noteAdapter.notifyItemRemoved(position);
-                            noteCounterSetLabel();
-
-                            // reloads the recycler and ends the dialog
-                            deleteNoteDialog.dismiss();
-                            reloadActivity();
-
-                        })
-                        .addOnFailureListener(e -> {
-                            deleteNoteDialog.dismiss();
-                            Toast.makeText(this, "Failed to delete note!", Toast.LENGTH_SHORT).show();
-                        });
-            });
-
-            view.findViewById(R.id.buttonCancel).setOnClickListener(v -> deleteNoteDialog.dismiss());
-        }
-
+        view.findViewById(R.id.buttonCancel).setOnClickListener(v -> deleteNoteDialog.dismiss());
         deleteNoteDialog.show();
-        if (deleteNoteDialog.getWindow() != null) {
-            deleteNoteDialog.getWindow().setGravity(Gravity.BOTTOM);
-        }
     }
+
+
+
 
     public void noteCounterSetLabel() {
         TextView noteCountView = findViewById(R.id.noteCount);

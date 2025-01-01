@@ -33,7 +33,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public NoteAdapter(List<Map<String, Object>> notes, NoteListener noteListener) {
         this.notes = notes;
         this.noteListener = noteListener;
-        notesSearchedList = new ArrayList<>(notes);
+        this.notesSearchedList = new ArrayList<>(notes);
     }
 
     @NonNull
@@ -54,11 +54,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         holder.noteTitle.setText(title);
         holder.noteContent.setText(content);
 
-// Adjust height based on content length
+    // Adjust height based on content length
         int contentLength = content.length();
         ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
 
-// Set height dynamically for long content; use WRAP_CONTENT for all cases to avoid cropping
+    // Set height dynamically for long content; use WRAP_CONTENT for all cases to avoid cropping
         if (contentLength > 100) {
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT; // Allow dynamic resizing for longer content
         } else {
@@ -76,15 +76,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         });
     }
 
-
     @Override
     public int getItemCount() {
         return notes.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
+    public void deleteNoteAtPosition(int position) {
+        if (position >= 0 && position < notes.size()) {
+            notes.remove(position);  // Remove the note from your list
+            notifyItemRemoved(position);  // Notify adapter about the removal
+        }
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
@@ -97,11 +98,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteContent = itemView.findViewById(R.id.noteContent);
             noteLayout = itemView.findViewById(R.id.noteLayout);
-            noteContent = itemView.findViewById(R.id.noteContent);
         }
 
         void setNote(Map<String, Object> note) {
-            // Set the title and body from Firestore data
             noteTitle.setText((String) note.get("noteTitle"));
             noteContent.setText(StringUtils.abbreviate((String) note.get("noteBody"), 120));
         }
