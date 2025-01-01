@@ -160,19 +160,21 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                     }
 
                     if (snapshots != null) {
-                        noteList.clear();
+                        List<Map<String, Object>> updatedNoteList = new ArrayList<>();
                         for (QueryDocumentSnapshot document : snapshots) {
                             Map<String, Object> note = new HashMap<>(document.getData());
                             note.put("noteId", document.getId());
-                            noteList.add(note);
+                            updatedNoteList.add(note);
                         }
 
-                        // Update RecyclerView and note counter
-                        noteAdapter.notifyItemRangeInserted(0, noteList.size());
+                        noteList.clear();
+                        noteList.addAll(updatedNoteList);
+                        noteAdapter.notifyDataSetChanged();
                         noteCounterSetLabel();
                     }
                 });
     }
+
 
 
     private void showBottomSheetMenu() {
@@ -227,12 +229,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             db.collection("users").document(userId).collection("notes").document(noteId)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-                        // Remove the note from the adapter list
-                        noteAdapter.deleteNoteAtPosition(position);
-                        // Optionally update any other UI elements or counters
-                        noteCounterSetLabel();
-                        // Dismiss the dialog and reload activity if needed
-                        deleteNoteDialog.dismiss();
+                        noteAdapter.deleteNoteAtPosition(position); // Remove from adapter
+                        noteCounterSetLabel(); // Update note counter
+                        deleteNoteDialog.dismiss(); // Dismiss the dialog
                     })
                     .addOnFailureListener(e -> {
                         deleteNoteDialog.dismiss();
@@ -243,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         view.findViewById(R.id.buttonCancel).setOnClickListener(v -> deleteNoteDialog.dismiss());
         deleteNoteDialog.show();
     }
+
 
 
 
