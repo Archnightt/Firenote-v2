@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/noteLayout"
-    android:background="@drawable/note_background"
+    android:background="@drawable/note_card_background"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp"

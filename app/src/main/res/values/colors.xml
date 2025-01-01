@@ -20,4 +20,6 @@
     <color name="dark">#272727</color>
     <color name="offwhite">#faf8f8</color>
     <color name="iosgrey">#171717</color>
+    <color name="lightstroke">#c6c9d1</color>
+    <color name="darkstroke">#3c4147</color>
 </resources>

@@ -26,6 +26,8 @@
         <item name ="colorButtonNormal">@color/light</item>
 
         <item name = "colorOnTertiary">@color/iosgrey</item>
+        <item name = "colorOnPrimaryContainer">@color/darkstroke</item>
+
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnSecondary</item>
         <item name="android:windowLightStatusBar">false</item>

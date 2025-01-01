@@ -15,7 +15,6 @@ import com.night.SkyNote.R;
 import com.night.SkyNote.listeners.NoteListener;
 
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

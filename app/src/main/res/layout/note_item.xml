@@ -4,10 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/note_background"
+    android:background="@drawable/note_card_background"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-
     app:cardElevation="4dp"
     android:padding="16dp">
 
@@ -15,8 +14,8 @@
         android:id="@+id/noteTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="19.5dp"
-        android:fontFamily="@font/tommy_medium"
+        android:textSize="16dp"
+        android:fontFamily="@font/tommy_regular"
         android:textStyle="bold"
         android:textColor="?attr/colorOnPrimary" />
 
@@ -24,7 +23,7 @@
         android:id="@+id/noteContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:textSize="14.3dp"
         android:fontFamily="@font/tommy_regular"
         android:ellipsize="none"
