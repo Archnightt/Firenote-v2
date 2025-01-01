@@ -125,7 +125,6 @@ public class NoteEditorActivity extends AppCompatActivity {
         } else {
             userNotesRef.add(note)
                     .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(this, "Note added successfully!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, MainActivity.class)); // Navigate back
                         finish();
                     })
