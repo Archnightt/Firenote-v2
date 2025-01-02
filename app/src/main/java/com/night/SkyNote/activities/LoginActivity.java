@@ -72,8 +72,11 @@ public class LoginActivity extends AppCompatActivity {
 
     // Google Sign-In
     private void signInWithGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        googleSignInLauncher.launch(signInIntent);
+        FirebaseAuth.getInstance().signOut();
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            googleSignInLauncher.launch(signInIntent);
+        });
     }
 
     private void handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {

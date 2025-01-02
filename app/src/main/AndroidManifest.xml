@@ -21,23 +21,26 @@
             android:exported="true">
         </activity>
 
-        <activity android:name="com.night.SkyNote.activities.LoginActivity"
+        <activity android:name="com.night.SkyNote.activities.SplashActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name="com.night.SkyNote.activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"
+            android:exported="true">
+        </activity>
+
         <activity android:name="com.night.SkyNote.activities.NoteEditorActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
-            android:exported="false" />
-
-
+            android:exported="true" />
 
         <activity android:name="com.night.SkyNote.activities.SettingsActivity"
             android:windowSoftInputMode="stateHidden"
