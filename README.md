@@ -5,8 +5,8 @@ FireNote is an Android application that allows users to take notes and store the
 ## Features
 - **Note-Taking**: Users can create, view, and manage their notes.
 - **Firebase Integration**: 
-  - Firebase Authentication for user sign-in and management.
-  - Firebase Firestore for storing and syncing notes in real-time.
+  - Google and Twitter Authentication for user sign-in and management.
+  - Firestore for storing and syncing notes in real-time.
 - **User Authentication**: Users can securely sign in using Firebase Authentication.
 - **Real-Time Sync**: Notes are synced in real-time across devices using Firebase Firestore.
 - **Offline Persistence**: Firebase persistence saves notes locally when offline, and automatically syncs them to the cloud once the device is online.
