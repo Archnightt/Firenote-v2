@@ -23,7 +23,8 @@ FireNote is an Android application that allows users to take notes and store the
 - **Android API Level**: Target API level 30 (Android 11), Min API level 26.
 
 ## Preview
-![Login Light](https://github.com/user-attachments/assets/4623a9df-b45b-4c18-9726-a672a071c77a)
-![Light Notes](https://github.com/user-attachments/assets/3e740522-947a-4336-934d-da6b4071afec)
-![Dark Notes](https://github.com/user-attachments/assets/e986959a-cdd1-474e-a54e-691c07bdd6b5)
-![Edit Light](https://github.com/user-attachments/assets/ce68e449-fbab-4261-a120-13ec189cafab)
+<img src="https://github.com/user-attachments/assets/4623a9df-b45b-4c18-9726-a672a071c77a" alt="Login Light" width="400">
+<img src="https://github.com/user-attachments/assets/3e740522-947a-4336-934d-da6b4071afec" alt="Light Notes" width="400">
+<img src="https://github.com/user-attachments/assets/e986959a-cdd1-474e-a54e-691c07bdd6b5" alt="Dark Notes" width="400">
+<img src="https://github.com/user-attachments/assets/ce68e449-fbab-4261-a120-13ec189cafab" alt="Edit Light"
+
