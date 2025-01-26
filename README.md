@@ -16,7 +16,6 @@ FireNote is an Android application that allows users to take notes and store the
 - **Firebase**: 
   - Firebase Authentication for user authentication.
   - Firebase Firestore for database storage and syncing notes.
-  - Firebase Cloud Messaging for notifications (if applicable).
 - **UI/UX**: Material Design principles for a clean and intuitive interface.
 
 ## Requirements
