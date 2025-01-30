@@ -12,7 +12,7 @@ FireNote is an Android application that allows users to take notes and store the
 - **Offline Persistence**: Firebase persistence saves notes locally when offline, and automatically syncs them to the cloud once the device is online.
 
 ## Tools & Technologies Used
-- **Android**: Built using Android Studio with Java/Kotlin.
+- **Android**: Built using Android Studio with Java.
 - **Firebase**: 
   - Firebase Authentication for user authentication.
   - Firebase Firestore for database storage and syncing notes.
